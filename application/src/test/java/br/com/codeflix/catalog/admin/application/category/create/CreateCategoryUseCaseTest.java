@@ -1,7 +1,6 @@
 package br.com.codeflix.catalog.admin.application.category.create;
 
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
-import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -67,7 +66,7 @@ public class CreateCategoryUseCaseTest {
     }
 
     @Test
-    public void givenAValidCommandWithInactiveCategory_whenCallCreateCategory_shouldReturnInactiveCategoryId() {
+    public void givenAValidInactiveCommand_whenCallCreateCategory_shouldReturnInactivatedCategoryId() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;

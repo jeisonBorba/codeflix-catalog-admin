@@ -3,8 +3,6 @@ package br.com.codeflix.catalog.admin.application.category.create;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.validation.handler.Notification;
-import br.com.codeflix.catalog.admin.domain.validation.handler.ThrowsValidationHandler;
-import io.vavr.API;
 import io.vavr.control.Either;
 
 import java.util.Objects;
