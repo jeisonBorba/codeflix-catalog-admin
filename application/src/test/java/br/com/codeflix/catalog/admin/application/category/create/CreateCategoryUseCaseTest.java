@@ -34,7 +34,7 @@ public class CreateCategoryUseCaseTest {
 
         when(categoryGateway.create(any())).thenAnswer(returnsFirstArg());
 
-        final var actualOutput = useCase.execute(command);
+        final var actualOutput = useCase.execute(command).get();
 
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());
@@ -53,14 +53,15 @@ public class CreateCategoryUseCaseTest {
     public void givenAnInvalidName_whenCallCreateCategory_shouldReturnDomainException() {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
-        final var expectedErroMessage = "'name' should not be null";
-        final var expectedErroCount = 1;
+        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorCount = 1;
 
         final var command = CreateCategoryCommand.with(null, expectedDescription, expectedIsActive);
 
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(command));
+        final var notification = useCase.execute(command).getLeft();
 
-        assertEquals(expectedErroMessage, actualException.getMessage());
+        assertEquals(expectedErrorCount, notification.getErrors().size());
+        assertEquals(expectedErrorMessage, notification.firsError().message());
 
         verify(categoryGateway, never()).create(any());
     }
@@ -75,7 +76,7 @@ public class CreateCategoryUseCaseTest {
 
         when(categoryGateway.create(any())).thenAnswer(returnsFirstArg());
 
-        final var actualOutput = useCase.execute(command);
+        final var actualOutput = useCase.execute(command).get();
 
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());
@@ -95,15 +96,17 @@ public class CreateCategoryUseCaseTest {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
+        final var expectedErrorCount = 1;
         final var expectedErrorMessage = "Gateway error";
 
         final var command = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
 
         when(categoryGateway.create(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
 
-        final var actualException = assertThrows(IllegalStateException.class, () -> useCase.execute(command));
+        final var notification = useCase.execute(command).getLeft();
 
-        assertEquals(expectedErrorMessage, actualException.getMessage());
+        assertEquals(expectedErrorCount, notification.getErrors().size());
+        assertEquals(expectedErrorMessage, notification.firsError().message());
 
         verify(categoryGateway).create(argThat(category ->
                 Objects.equals(expectedName, category.getName())
