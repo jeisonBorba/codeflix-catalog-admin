@@ -4,6 +4,7 @@ import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
+import br.com.codeflix.catalog.admin.domain.exceptions.NotFoundException;
 import br.com.codeflix.catalog.admin.domain.validation.Error;
 import br.com.codeflix.catalog.admin.domain.validation.handler.Notification;
 import io.vavr.control.Either;
@@ -39,8 +40,8 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
         return notification.hasError() ? Left(notification) : update(category);
     }
 
-    private Supplier<DomainException> notFound(CategoryID id) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(id.getValue())));
+    private Supplier<NotFoundException> notFound(CategoryID id) {
+        return () -> NotFoundException.with(Category.class, id);
     }
 
     private Either<Notification, UpdateCategoryOutput> update(final Category category) {

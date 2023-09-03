@@ -4,6 +4,7 @@ import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
+import br.com.codeflix.catalog.admin.domain.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -164,17 +165,15 @@ public class UpdateCategoryUseCaseTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
         final var expectedId = "12345";
-        final var expectedErrorCount = 1;
         final var expectedErrorMessage = "Category with ID 12345 was not found";
 
         final var command = UpdateCategoryCommand.with(expectedId, expectedName, expectedDescription, expectedIsActive);
 
         when(categoryGateway.findById(eq(CategoryID.from(expectedId)))).thenReturn(Optional.empty());
 
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(command));
+        final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(command));
 
-        assertEquals(expectedErrorCount, actualException.getErrors().size());
-        assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        assertEquals(expectedErrorMessage, actualException.getMessage());
 
         verify(categoryGateway).findById(eq(CategoryID.from(expectedId)));
         verify(categoryGateway, never()).update(any());
