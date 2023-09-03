@@ -1,9 +1,9 @@
 package br.com.codeflix.catalog.admin.infrastructure.api;
 
 import br.com.codeflix.catalog.admin.ControllerTest;
-import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryCommand;
 import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryOutput;
 import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryUseCase;
+import br.com.codeflix.catalog.admin.application.category.delete.DeleteCategoryUseCase;
 import br.com.codeflix.catalog.admin.application.category.retrieve.get.CategoryOutput;
 import br.com.codeflix.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import br.com.codeflix.catalog.admin.application.category.update.UpdateCategoryOutput;
@@ -16,26 +16,21 @@ import br.com.codeflix.catalog.admin.domain.validation.Error;
 import br.com.codeflix.catalog.admin.domain.validation.handler.Notification;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.vavr.API;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Objects;
 
 import static io.vavr.API.Left;
 import static io.vavr.API.Right;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -57,6 +52,9 @@ public class CategoryAPITest {
 
     @MockBean
     private UpdateCategoryUseCase updateCategoryUseCase;
+
+    @MockBean
+    private DeleteCategoryUseCase deleteCategoryUseCase;
 
     @Test
     public void givenAValidCommand_whenCallCreateCategory_shouldReturnCategoryId() throws Exception {
@@ -297,5 +295,22 @@ public class CategoryAPITest {
                         && Objects.equals(expectedDescription, cmd.description())
                         && Objects.equals(expectedIsActive, cmd.isActive())
         ));
+    }
+
+    @Test
+    public void givenAValidId_whenCallDeleteCategory_shouldReturnNoContent() throws Exception {
+        final var expectedId = "12345";
+
+        doNothing().when(deleteCategoryUseCase).execute(any());
+
+        final var request = delete("/categories/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(deleteCategoryUseCase).execute(eq(expectedId));
     }
 }
