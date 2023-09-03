@@ -44,7 +44,7 @@ public class CreateCategoryUseCaseIT {
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());
 
-        final var actualCategory = categoryRepository.findById(actualOutput.id().getValue()).get();
+        final var actualCategory = categoryRepository.findById(actualOutput.id()).get();
 
         assertEquals(expectedName, actualCategory.getName());
         assertEquals(expectedDescription, actualCategory.getDescription());
@@ -94,7 +94,7 @@ public class CreateCategoryUseCaseIT {
 
         assertEquals(1, categoryRepository.count());
 
-        final var actualCategory = categoryRepository.findById(actualOutput.id().getValue()).get();
+        final var actualCategory = categoryRepository.findById(actualOutput.id()).get();
 
         assertEquals(expectedName, actualCategory.getName());
         assertEquals(expectedDescription, actualCategory.getDescription());
