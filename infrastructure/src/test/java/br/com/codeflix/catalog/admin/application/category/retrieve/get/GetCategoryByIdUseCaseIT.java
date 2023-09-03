@@ -4,7 +4,7 @@ import br.com.codeflix.catalog.admin.IntegrationTest;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
-import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
+import br.com.codeflix.catalog.admin.domain.exceptions.NotFoundException;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
@@ -58,10 +58,10 @@ public class GetCategoryByIdUseCaseIT {
 
     @Test
     public void givenAInvalidId_whenCallGetCategory_shouldReturnNotFound() {
-        final var expectedErrorMessage = "Category with ID 12345 was not-found";
+        final var expectedErrorMessage = "Category with ID 12345 was not found";
         final var expectedId = CategoryID.from("12345");
 
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(expectedId.getValue()));
+        final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(expectedId.getValue()));
 
         assertEquals(expectedErrorMessage, actualException.getMessage());
 

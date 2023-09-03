@@ -3,10 +3,13 @@ package br.com.codeflix.catalog.admin.infrastructure.api.controllers;
 import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryCommand;
 import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryOutput;
 import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryUseCase;
+import br.com.codeflix.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import br.com.codeflix.catalog.admin.domain.pagination.Pagination;
 import br.com.codeflix.catalog.admin.domain.validation.handler.Notification;
 import br.com.codeflix.catalog.admin.infrastructure.api.CategoryAPI;
+import br.com.codeflix.catalog.admin.infrastructure.category.models.CategoryApiOutput;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
+import br.com.codeflix.catalog.admin.infrastructure.category.presenters.CategoryApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +21,12 @@ import java.util.function.Function;
 public class CategoryController implements CategoryAPI {
 
     private final CreateCategoryUseCase createCategoryUseCase;
+    private final GetCategoryByIdUseCase getCategoryByIdUseCase;
 
-    public CategoryController(CreateCategoryUseCase createCategoryUseCase) {
+    public CategoryController(final CreateCategoryUseCase createCategoryUseCase,
+                              final GetCategoryByIdUseCase getCategoryByIdUseCase) {
         this.createCategoryUseCase = Objects.requireNonNull(createCategoryUseCase);
+        this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
     }
 
     @Override
@@ -44,5 +50,12 @@ public class CategoryController implements CategoryAPI {
     @Override
     public Pagination<?> listCategories(String search, int page, int perPage, String sort, String direction) {
         return null;
+    }
+
+    @Override
+    public CategoryApiOutput getCategoryById(final String id) {
+        return CategoryApiPresenter.present
+                .compose(this.getCategoryByIdUseCase::execute)
+                .apply(id);
     }
 }

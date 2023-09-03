@@ -162,7 +162,7 @@ public class UpdateCategoryUseCaseIT {
         final var expectedIsActive = false;
         final var expectedId = "12345";
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "Category with ID 12345 was not-found";
+        final var expectedErrorMessage = "Category with ID 12345 was not found";
 
         final var command = UpdateCategoryCommand.with(expectedId, expectedName, expectedDescription, expectedIsActive);
 
