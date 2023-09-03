@@ -1,7 +1,7 @@
 package br.com.codeflix.catalog.admin.infrastructure.category.persistence;
 
 import br.com.codeflix.catalog.admin.domain.category.Category;
-import br.com.codeflix.catalog.admin.infrastructure.MySQLGatewayTest;
+import br.com.codeflix.catalog.admin.MySQLGatewayTest;
 import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
