@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ActiveProfiles("test")
+@ActiveProfiles("integration-test")
 @WebMvcTest
 @Import(ObjectMapperConfig.class)
 public @interface ControllerTest {

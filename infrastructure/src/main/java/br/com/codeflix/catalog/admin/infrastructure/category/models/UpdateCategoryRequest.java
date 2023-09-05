@@ -7,4 +7,8 @@ public record UpdateCategoryRequest(
         @JsonProperty("description") String description,
         @JsonProperty("is_active") Boolean active
 ) {
+
+    public static UpdateCategoryRequest with(final String name, final String description, final Boolean active) {
+        return new UpdateCategoryRequest(name, description, active);
+    }
 }

@@ -7,4 +7,7 @@ public record CreateCategoryRequest(
         @JsonProperty("description") String description,
         @JsonProperty("is_active") Boolean active
 ) {
+    public static CreateCategoryRequest with(final String name, final String description, final boolean active) {
+        return new CreateCategoryRequest(name, description, active);
+    }
 }
