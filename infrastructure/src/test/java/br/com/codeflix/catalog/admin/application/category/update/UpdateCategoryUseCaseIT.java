@@ -1,6 +1,8 @@
 package br.com.codeflix.catalog.admin.application.category.update;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
+import br.com.codeflix.catalog.admin.application.category.update.UpdateCategoryCommand;
+import br.com.codeflix.catalog.admin.application.category.update.UpdateCategoryUseCase;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;

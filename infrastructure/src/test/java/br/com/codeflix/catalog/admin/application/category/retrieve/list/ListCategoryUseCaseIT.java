@@ -1,6 +1,7 @@
 package br.com.codeflix.catalog.admin.application.category.retrieve.list;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
+import br.com.codeflix.catalog.admin.application.category.retrieve.list.ListCategoryUseCase;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategorySearchQuery;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;

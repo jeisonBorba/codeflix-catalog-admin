@@ -1,6 +1,8 @@
 package br.com.codeflix.catalog.admin.application.category.create;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
+import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryCommand;
+import br.com.codeflix.catalog.admin.application.category.create.CreateCategoryUseCase;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;

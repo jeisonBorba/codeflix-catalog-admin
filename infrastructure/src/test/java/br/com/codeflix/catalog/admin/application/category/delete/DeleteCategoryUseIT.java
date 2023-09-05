@@ -1,6 +1,7 @@
 package br.com.codeflix.catalog.admin.application.category.delete;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
+import br.com.codeflix.catalog.admin.application.category.delete.DeleteCategoryUseCase;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;

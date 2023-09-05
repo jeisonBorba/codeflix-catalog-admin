@@ -1,9 +1,10 @@
 package br.com.codeflix.catalog.admin.infrastructure.api;
 
 import br.com.codeflix.catalog.admin.domain.pagination.Pagination;
-import br.com.codeflix.catalog.admin.infrastructure.category.models.CategoryApiOutput;
-import br.com.codeflix.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
-import br.com.codeflix.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
+import br.com.codeflix.catalog.admin.infrastructure.category.models.CategoryListResponse;
+import br.com.codeflix.catalog.admin.infrastructure.category.models.CategoryResponse;
+import br.com.codeflix.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
+import br.com.codeflix.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,7 +28,7 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "422", description = "Validation error"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    ResponseEntity<?> createCategory(@RequestBody final CreateCategoryApiInput input);
+    ResponseEntity<?> createCategory(@RequestBody final CreateCategoryRequest input);
 
     @GetMapping
     @Operation(summary = "List all categories paginated")
@@ -36,7 +37,7 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "422", description = "Invalid parameter error"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    Pagination<?> listCategories(
+    Pagination<CategoryListResponse> listCategories(
             @RequestParam(value = "search", required = false, defaultValue = "") final String search,
             @RequestParam(value = "page", required = false, defaultValue = "0") final int page,
             @RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage,
@@ -55,7 +56,7 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "404", description = "Category not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    CategoryApiOutput getCategoryById(@PathVariable(name = "id") final String id);
+    CategoryResponse getCategoryById(@PathVariable(name = "id") final String id);
 
     @PutMapping(
             value = "{id}",
@@ -70,7 +71,7 @@ public interface CategoryAPI {
     })
     ResponseEntity<?> updateCategoryById(
             @PathVariable(name = "id") final String id,
-            @RequestBody final UpdateCategoryApiInput input
+            @RequestBody final UpdateCategoryRequest input
     );
 
     @DeleteMapping(

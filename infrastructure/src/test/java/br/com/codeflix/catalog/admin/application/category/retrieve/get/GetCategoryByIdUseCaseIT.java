@@ -1,6 +1,7 @@
 package br.com.codeflix.catalog.admin.application.category.retrieve.get;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
+import br.com.codeflix.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
