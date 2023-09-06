@@ -50,8 +50,8 @@ public class GetCategoryByIdUseCaseIT {
         assertEquals(expectedName, actualCategory.name());
         assertEquals(expectedDescription, actualCategory.description());
         assertEquals(expectedIsActive, actualCategory.isActive());
-        assertThatInstantsByMicroAreEquals(category.getCreatedAt(), actualCategory.createdAt());
-        assertThatInstantsByMicroAreEquals(category.getUpdatedAt(), actualCategory.updatedAt());
+        assertEquals(category.getCreatedAt(), actualCategory.createdAt());
+        assertEquals(category.getUpdatedAt(), actualCategory.updatedAt());
         assertNull(actualCategory.deletedAt());
 
         verify(categoryGateway).findById(eq(expectedId));
@@ -89,9 +89,5 @@ public class GetCategoryByIdUseCaseIT {
                         .map(CategoryJpaEntity::from)
                         .toList()
         );
-    }
-
-    private void assertThatInstantsByMicroAreEquals(final Instant expected, final Instant actual) {
-        assertEquals(expected.truncatedTo(ChronoUnit.MILLIS), actual.truncatedTo(ChronoUnit.MILLIS));
     }
 }

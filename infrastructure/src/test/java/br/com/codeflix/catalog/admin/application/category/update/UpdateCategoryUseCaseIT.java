@@ -68,7 +68,7 @@ public class UpdateCategoryUseCaseIT {
         assertEquals(expectedName, actualCategory.getName());
         assertEquals(expectedDescription, actualCategory.getDescription());
         assertEquals(expectedIsActive, actualCategory.isActive());
-        assertThatInstantsByMicroAreEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
+        assertEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
         assertTrue(category.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         assertNull(actualCategory.getDeletedAt());
     }
@@ -121,7 +121,7 @@ public class UpdateCategoryUseCaseIT {
         assertEquals(expectedName, actualCategory.getName());
         assertEquals(expectedDescription, actualCategory.getDescription());
         assertEquals(expectedIsActive, actualCategory.isActive());
-        assertThatInstantsByMicroAreEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
+        assertEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
         assertTrue(category.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         assertNotNull(actualCategory.getDeletedAt());
     }
@@ -153,8 +153,8 @@ public class UpdateCategoryUseCaseIT {
         assertEquals(category.getName(), actualCategory.getName());
         assertEquals(category.getDescription(), actualCategory.getDescription());
         assertEquals(category.isActive(), actualCategory.isActive());
-        assertThatInstantsByMicroAreEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
-        assertThatInstantsByMicroAreEquals(category.getUpdatedAt(), actualCategory.getUpdatedAt());
+        assertEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
+        assertEquals(category.getUpdatedAt(), actualCategory.getUpdatedAt());
         assertEquals(category.getDeletedAt(), actualCategory.getDeletedAt());
     }
 
@@ -181,7 +181,4 @@ public class UpdateCategoryUseCaseIT {
         );
     }
 
-    private void assertThatInstantsByMicroAreEquals(final Instant expected, final Instant actual) {
-        assertEquals(expected.truncatedTo(ChronoUnit.MILLIS), actual.truncatedTo(ChronoUnit.MILLIS));
-    }
 }

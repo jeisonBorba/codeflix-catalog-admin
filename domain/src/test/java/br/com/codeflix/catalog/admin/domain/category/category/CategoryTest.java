@@ -1,5 +1,6 @@
-package br.com.codeflix.catalog.admin.domain.category;
+package br.com.codeflix.catalog.admin.domain.category.category;
 
+import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
 import br.com.codeflix.catalog.admin.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Test;

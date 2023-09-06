@@ -2,7 +2,7 @@ package br.com.codeflix.catalog.admin.application.category.retrieve.list;
 
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
-import br.com.codeflix.catalog.admin.domain.category.CategorySearchQuery;
+import br.com.codeflix.catalog.admin.domain.pagination.SearchQuery;
 import br.com.codeflix.catalog.admin.domain.pagination.Pagination;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class ListCategoryUseCaseTest {
         final var expectedSort = "createdAt";
         final var expectedDirection = "asc";
 
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
@@ -76,7 +76,7 @@ public class ListCategoryUseCaseTest {
         final var expectedSort = "createdAt";
         final var expectedDirection = "asc";
 
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, 0, categories);
 
@@ -105,7 +105,7 @@ public class ListCategoryUseCaseTest {
         final var expectedDirection = "asc";
         final var expectedErrorMessage = "Gateway error";
 
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         when(categoryGateway.findAll(eq(query))).thenThrow(new IllegalStateException(expectedErrorMessage));
 

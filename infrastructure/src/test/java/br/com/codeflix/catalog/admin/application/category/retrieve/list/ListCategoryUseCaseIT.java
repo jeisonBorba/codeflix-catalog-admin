@@ -1,9 +1,8 @@
 package br.com.codeflix.catalog.admin.application.category.retrieve.list;
 
 import br.com.codeflix.catalog.admin.IntegrationTest;
-import br.com.codeflix.catalog.admin.application.category.retrieve.list.ListCategoryUseCase;
 import br.com.codeflix.catalog.admin.domain.category.Category;
-import br.com.codeflix.catalog.admin.domain.category.CategorySearchQuery;
+import br.com.codeflix.catalog.admin.domain.pagination.SearchQuery;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;
 import br.com.codeflix.catalog.admin.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,7 +51,7 @@ public class ListCategoryUseCaseIT {
         final var expectedItemsCount = 0;
         final var expectedTotal = 0;
 
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResult = useCase.execute(query);
 
@@ -82,7 +80,7 @@ public class ListCategoryUseCaseIT {
         final var expectedSort = "name";
         final var expectedDirection = "asc";
 
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var actualResult = useCase.execute(query);
 
@@ -109,7 +107,7 @@ public class ListCategoryUseCaseIT {
             final long expectedTotal,
             final String expectedCategoryName
     ) {
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, "", expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, "", expectedSort, expectedDirection);
 
         final var actualResult = useCase.execute(query);
 
@@ -136,7 +134,7 @@ public class ListCategoryUseCaseIT {
     ) {
         final var expectedSort = "name";
         final var expectedDirection = "asc";
-        final var query = CategorySearchQuery.with(expectedPage, expectedPerPage, "", expectedSort, expectedDirection);
+        final var query = SearchQuery.with(expectedPage, expectedPerPage, "", expectedSort, expectedDirection);
 
         final var actualResult = useCase.execute(query);
 
