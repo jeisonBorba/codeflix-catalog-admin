@@ -13,9 +13,11 @@ import java.lang.annotation.*;
 @Inherited
 @ActiveProfiles("integration-test")
 @DataJpaTest
-@ComponentScan(includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
-})
+@ComponentScan(
+        basePackages = "br.com.codeflix.catalog.admin",
+        includeFilters = {
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
+        })
 @ExtendWith(MySQLCleanUpExtension.class)
 public @interface MySQLGatewayTest {
 }
