@@ -6,6 +6,7 @@ import br.com.codeflix.catalog.admin.domain.genre.Genre;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -258,8 +259,7 @@ public class GenreTest {
         final var actualCreatedAt = actualGenre.getCreatedAt();
         final var actualUpdatedAt = actualGenre.getUpdatedAt();
 
-        actualGenre.addCategory(seriesID);
-        actualGenre.addCategory(moviesID);
+        actualGenre.addCategories(List.of(seriesID, moviesID));
 
         assertNotNull(actualGenre);
         assertNotNull(actualGenre.getId());
@@ -286,7 +286,34 @@ public class GenreTest {
         final var actualCreatedAt = actualGenre.getCreatedAt();
         final var actualUpdatedAt = actualGenre.getUpdatedAt();
 
-        actualGenre.addCategory(null);
+        actualGenre.addCategories(null);
+
+        assertNotNull(actualGenre);
+        assertNotNull(actualGenre.getId());
+        assertEquals(expectedName, actualGenre.getName());
+        assertEquals(expectedIsActive, actualGenre.isActive());
+        assertEquals(expectedCategories, actualGenre.getCategories());
+        assertNotNull(actualGenre.getCreatedAt());
+        assertEquals(actualCreatedAt, actualGenre.getCreatedAt());
+        assertNotNull(actualGenre.getUpdatedAt());
+        assertEquals(actualUpdatedAt, actualGenre.getUpdatedAt());
+        assertNull(actualGenre.getDeletedAt());
+    }
+
+    @Test
+    public void givenAnInvalidEmptyAsCategoryID_whenCallAddCategory_shouldReceiveOk() {
+        final String expectedName = "Ação";
+        final var expectedIsActive = true;
+        final var expectedCategories = new ArrayList<CategoryID>();
+
+        final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
+
+        assertEquals(0, actualGenre.getCategories().size());
+
+        final var actualCreatedAt = actualGenre.getCreatedAt();
+        final var actualUpdatedAt = actualGenre.getUpdatedAt();
+
+        actualGenre.addCategories(Collections.emptyList());
 
         assertNotNull(actualGenre);
         assertNotNull(actualGenre.getId());

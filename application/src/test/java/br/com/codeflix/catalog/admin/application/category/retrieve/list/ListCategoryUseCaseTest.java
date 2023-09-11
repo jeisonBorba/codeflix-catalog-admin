@@ -1,15 +1,13 @@
 package br.com.codeflix.catalog.admin.application.category.retrieve.list;
 
+import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.pagination.SearchQuery;
 import br.com.codeflix.catalog.admin.domain.pagination.Pagination;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -18,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class ListCategoryUseCaseTest {
+public class ListCategoryUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultListCategoryUseCase useCase;
@@ -27,9 +24,9 @@ public class ListCategoryUseCaseTest {
     @Mock
     private CategoryGateway categoryGateway;
 
-    @BeforeEach
-    void cleanUp() {
-        reset(categoryGateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
     }
 
     @Test

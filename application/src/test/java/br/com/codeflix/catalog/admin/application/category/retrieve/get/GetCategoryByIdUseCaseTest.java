@@ -1,24 +1,22 @@
 package br.com.codeflix.catalog.admin.application.category.retrieve.get;
 
+import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.category.CategoryGateway;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.domain.exceptions.DomainException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class GetCategoryByIdUseCaseTest {
+public class GetCategoryByIdUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultGetCategoryByIdUseCase useCase;
@@ -26,9 +24,9 @@ public class GetCategoryByIdUseCaseTest {
     @Mock
     private CategoryGateway categoryGateway;
 
-    @BeforeEach
-    void cleanUp() {
-        reset(categoryGateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
     }
 
     @Test
@@ -70,7 +68,7 @@ public class GetCategoryByIdUseCaseTest {
     }
 
     @Test
-    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
+    public void givenAValidId_whenGatewayThrowsUnexpectedError_shouldReturnException() {
         final var expectedErrorMessage = "Gateway error";
         final var expectedId = CategoryID.from("12345");
 

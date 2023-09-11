@@ -5,8 +5,11 @@ import java.util.List;
 public interface ValidationHandler {
 
     ValidationHandler append(Error error);
+
     ValidationHandler append(ValidationHandler handler);
-    ValidationHandler validate(Validation validation);
+
+    <T> T validate(Validation<T> validation);
+
     List<Error> getErrors();
 
     default boolean hasError() {
@@ -20,7 +23,7 @@ public interface ValidationHandler {
         return null;
     }
 
-    interface Validation {
-        void validate();
+    interface Validation<T> {
+        T validate();
     }
 }
