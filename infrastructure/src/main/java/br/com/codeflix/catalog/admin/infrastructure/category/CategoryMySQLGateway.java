@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static br.com.codeflix.catalog.admin.infrastructure.utils.SpecificationUtils.like;
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -63,12 +64,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
 
         final var specifications = Optional.ofNullable(query.terms())
                 .filter(str -> !str.isBlank())
-                .map(str -> {
-                    final Specification<CategoryJpaEntity> nameLike = like("name", str);
-                    final Specification<CategoryJpaEntity> descriptionLike = like("description", str);
-
-                    return nameLike.or(descriptionLike);
-                })
+                .map(this::assembleSpecification)
                 .orElse(null);
 
         final var pageResult = this.categoryRepository.findAll(where(specifications), page);
@@ -88,5 +84,12 @@ public class CategoryMySQLGateway implements CategoryGateway {
 
     private Category save(final Category category) {
         return this.categoryRepository.save(CategoryJpaEntity.from(category)).toAggregate();
+    }
+
+    private Specification<CategoryJpaEntity> assembleSpecification(final String str) {
+        final Specification<CategoryJpaEntity> nameLike = like("name", str);
+        final Specification<CategoryJpaEntity> descriptionLike = like("description", str);
+
+        return nameLike.or(descriptionLike);
     }
 }

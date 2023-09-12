@@ -6,6 +6,8 @@ import br.com.codeflix.catalog.admin.domain.genre.GenreID;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
@@ -43,6 +45,7 @@ public class GenreJpaEntity {
         this.id = id;
         this.name = name;
         this.active = isActive;
+        this.categories = new HashSet<>();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -67,13 +70,17 @@ public class GenreJpaEntity {
                 GenreID.from(getId()),
                 getName(),
                 isActive(),
-                getCategories().stream()
-                        .map(it -> CategoryID.from(it.getId().getCategoryId()))
-                        .toList(),
+                getCategoriesIDs(),
                 getCreatedAt(),
                 getUpdatedAt(),
                 getDeletedAt()
         );
+    }
+
+    public List<CategoryID> getCategoriesIDs() {
+        return getCategories().stream()
+                .map(it -> CategoryID.from(it.getId().getCategoryId()))
+                .toList();
     }
 
     private void addCategory(final CategoryID id) {
