@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 import static br.com.codeflix.catalog.admin.infrastructure.utils.SpecificationUtils.like;
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -77,9 +78,14 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public List<CategoryID> existsByIds(final Iterable<CategoryID> ids) {
-        // TODO: implementar quando chegar na camada de instraestrutura de Genre.
-        return Collections.emptyList();
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categoriesIds) {
+        final var ids = StreamSupport.stream(categoriesIds.spliterator(), false)
+                .map(CategoryID::getValue)
+                .toList();
+
+        return this.categoryRepository.existsByIds(ids).stream()
+                .map(CategoryID::from)
+                .toList();
     }
 
     private Category save(final Category category) {
