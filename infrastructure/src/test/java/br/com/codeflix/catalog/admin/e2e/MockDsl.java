@@ -1,8 +1,13 @@
 package br.com.codeflix.catalog.admin.e2e;
 
 import br.com.codeflix.catalog.admin.domain.Identifier;
+import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
+import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.domain.genre.GenreID;
+import br.com.codeflix.catalog.admin.infrastructure.castmember.models.CastMemberResponse;
+import br.com.codeflix.catalog.admin.infrastructure.castmember.models.CreateCastMemberRequest;
+import br.com.codeflix.catalog.admin.infrastructure.castmember.models.UpdateCastMemberRequest;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.CategoryResponse;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
 import br.com.codeflix.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
@@ -24,6 +29,48 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public interface MockDsl {
 
     MockMvc mvc();
+
+    /**
+     * Cast Member
+     */
+    default ResultActions deleteACastMember(final CastMemberID id) throws Exception {
+        return this.delete("/cast_members/", id);
+    }
+
+    default CastMemberID givenACastMember(final String name, final CastMemberType type) throws Exception {
+        final var requestBody = new CreateCastMemberRequest(name, type);
+        final var actualId = this.given("/cast_members", requestBody);
+        return CastMemberID.from(actualId);
+    }
+
+    default ResultActions givenACastMemberResult(final String name, final CastMemberType type) throws Exception {
+        final var requestBody = new CreateCastMemberRequest(name, type);
+        return this.givenResult("/cast_members", requestBody);
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage) throws Exception {
+        return listCastMembers(page, perPage, "", "", "");
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage, final String search) throws Exception {
+        return listCastMembers(page, perPage, search, "", "");
+    }
+
+    default ResultActions listCastMembers(final int page, final int perPage, final String search, final String sort, final String direction) throws Exception {
+        return this.list("/cast_members", page, perPage, search, sort, direction);
+    }
+
+    default CastMemberResponse retrieveACastMember(final CastMemberID id) throws Exception {
+        return this.retrieve("/cast_members/", id, CastMemberResponse.class);
+    }
+
+    default ResultActions retrieveACastMemberResult(final CastMemberID id) throws Exception {
+        return this.retrieveResult("/cast_members/", id);
+    }
+
+    default ResultActions updateACastMember(final CastMemberID id, final String name, final CastMemberType type) throws Exception {
+        return this.update("/cast_members/", id, new UpdateCastMemberRequest(name, type));
+    }
 
     /**
      * Category

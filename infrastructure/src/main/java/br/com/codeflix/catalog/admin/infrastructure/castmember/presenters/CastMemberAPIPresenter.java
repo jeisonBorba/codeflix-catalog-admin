@@ -7,7 +7,7 @@ import br.com.codeflix.catalog.admin.infrastructure.castmember.models.CastMember
 
 import java.util.function.Function;
 
-public interface CastMemberPresenter {
+public interface CastMemberAPIPresenter {
 
     Function<CastMemberOutput, CastMemberResponse> present = output -> CastMemberResponse.with(
             output.id(),
