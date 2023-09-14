@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.*;
@@ -39,7 +40,7 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
         final var member = CastMember.newMember("vin diesel", CastMemberType.DIRECTOR);
 
         final var expectedId = member.getId();
-        final var expectedName = Fixture.name();
+        final var expectedName = name();
         final var expectedType = CastMemberType.ACTOR;
 
         final var command = UpdateCastMemberCommand.with(
@@ -105,7 +106,7 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
         final var member = CastMember.newMember("vin diesel", CastMemberType.DIRECTOR);
 
         final var expectedId = member.getId();
-        final var expectedName = Fixture.name();
+        final var expectedName = name();
         final CastMemberType expectedType = null;
 
         final var expectedErrorCount = 1;
@@ -137,7 +138,7 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
         final var member = CastMember.newMember("vin diesel", CastMemberType.DIRECTOR);
 
         final var expectedId = CastMemberID.from("123");
-        final var expectedName = Fixture.name();
+        final var expectedName = name();
         final var expectedType = Fixture.CastMember.type();
 
         final var expectedErrorMessage = "CastMember with ID 123 was not found";

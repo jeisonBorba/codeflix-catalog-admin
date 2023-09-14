@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Objects;
 
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,8 +35,8 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAValidCommand_whenCallsCreateCastMember_shouldReturnIt() {
-        final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedName = name();
+        final var expectedType = type();
 
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
 
@@ -57,7 +59,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     @Test
     public void givenAInvalidName_whenCallsCreateCastMember_shouldThrowsNotificationException() {
         final String expectedName = null;
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = type();
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
@@ -77,7 +79,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAInvalidType_whenCallsCreateCastMember_shouldThrowsNotificationException() {
-        final var expectedName = Fixture.name();
+        final var expectedName = name();
         final CastMemberType expectedType = null;
 
         final var expectedErrorCount = 1;

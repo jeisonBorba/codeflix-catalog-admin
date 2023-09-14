@@ -3,7 +3,6 @@ plugins {
 }
 
 group = 'br.com.codeflix.catalog.admin.domain'
-version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()

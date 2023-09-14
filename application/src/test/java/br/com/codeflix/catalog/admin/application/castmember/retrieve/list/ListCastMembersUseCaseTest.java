@@ -12,6 +12,8 @@ import org.mockito.Mock;
 
 import java.util.List;
 
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,8 +37,8 @@ public class ListCastMembersUseCaseTest extends UseCaseTest {
     @Test
     public void givenAValidQuery_whenCallsListCastMembers_shouldReturnCastMemberPaginated() {
         final var members = List.of(
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type())
+                CastMember.newMember(name(), type()),
+                CastMember.newMember(name(), type())
         );
 
         final var expectedPage = 0;

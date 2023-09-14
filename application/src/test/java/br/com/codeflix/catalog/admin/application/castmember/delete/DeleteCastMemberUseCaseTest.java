@@ -11,6 +11,8 @@ import org.mockito.Mock;
 
 import java.util.List;
 
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,7 +34,7 @@ public class DeleteCastMemberUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAValidId_whenCallsDeleteCastMember_shouldDeleteIt() {
-        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var aMember = CastMember.newMember(name(), type());
 
         final var expectedId = aMember.getId();
 
@@ -56,7 +58,7 @@ public class DeleteCastMemberUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAValidId_whenCallsDeleteCastMemberAndGatewayThrowsException_shouldReceiveException() {
-        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var aMember = CastMember.newMember(name(), type());
 
         final var expectedId = aMember.getId();
 

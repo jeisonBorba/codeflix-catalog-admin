@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -34,8 +36,8 @@ public class GetCastMemberByIdUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAValidId_whenCallsGetCastMember_shouldReturnIt() {
-        final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedName = name();
+        final var expectedType = type();
 
         final var member = CastMember.newMember(expectedName, expectedType);
 
