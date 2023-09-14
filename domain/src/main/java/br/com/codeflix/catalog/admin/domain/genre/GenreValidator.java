@@ -6,7 +6,7 @@ import br.com.codeflix.catalog.admin.domain.validation.Validator;
 
 public class GenreValidator extends Validator {
 
-    public static final int NAME_MAX_LENGTH = 255;
+    private static final int NAME_MAX_LENGTH = 255;
 
     private Genre genre;
 

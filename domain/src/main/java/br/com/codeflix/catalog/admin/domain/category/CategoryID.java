@@ -1,6 +1,7 @@
 package br.com.codeflix.catalog.admin.domain.category;
 
 import br.com.codeflix.catalog.admin.domain.Identifier;
+import br.com.codeflix.catalog.admin.domain.utils.IdUtils;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class CategoryID extends Identifier {
     }
 
     public static CategoryID unique() {
-        return CategoryID.from(UUID.randomUUID());
+        return CategoryID.from(IdUtils.uuid());
     }
 
     public static CategoryID from(final String id) {
