@@ -5,11 +5,14 @@ import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
 import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.genre.Genre;
 import br.com.codeflix.catalog.admin.domain.utils.IdUtils;
-import br.com.codeflix.catalog.admin.domain.video.Rating;
-import br.com.codeflix.catalog.admin.domain.video.Resource;
-import br.com.codeflix.catalog.admin.domain.video.VideoMediaType;
+import br.com.codeflix.catalog.admin.domain.video.*;
 import com.github.javafaker.Faker;
 
+import java.time.Year;
+import java.util.Set;
+
+import static br.com.codeflix.catalog.admin.application.Fixture.Videos.description;
+import static br.com.codeflix.catalog.admin.application.Fixture.Videos.rating;
 import static io.vavr.API.*;
 
 public final class Fixture {
@@ -38,6 +41,26 @@ public final class Fixture {
             "Não cometa esses erros ao trabalhar com Microsserviços",
             "Testes de Mutacão. Você não testa seu software corretamente"
         );
+    }
+
+    public static Video video() {
+        return Video.newVideo(
+                "System Design no Mercado Livre na prática",
+                description(),
+                Year.of(2022),
+                Fixture.duration(),
+                Fixture.bool(),
+                Fixture.bool(),
+                rating(),
+                Set.of(Categories.aulas().getId()),
+                Set.of(Genres.tech().getId()),
+                Set.of(CastMembers.wesley().getId(), CastMembers.gabriel().getId())
+        );
+    }
+
+
+    public static String checksum() {
+        return "03fe62de";
     }
 
     public static final class Categories {
@@ -91,6 +114,23 @@ public final class Fixture {
 
     public static final class Videos {
 
+        private static final Video SYSTEM_DESIGN = Video.newVideo(
+                "System Design no Mercado Livre na prática",
+                description(),
+                Year.of(2022),
+                Fixture.duration(),
+                Fixture.bool(),
+                Fixture.bool(),
+                rating(),
+                Set.of(Categories.aulas().getId()),
+                Set.of(Genres.tech().getId()),
+                Set.of(CastMembers.wesley().getId(), CastMembers.gabriel().getId())
+        );
+
+        public static Video systemDesign() {
+            return Video.with(SYSTEM_DESIGN);
+        }
+
         public static Resource resource(final VideoMediaType type) {
             final String contentType = Match(type).of(
                     Case($(List(VideoMediaType.VIDEO, VideoMediaType.TRAILER)::contains), "video/mp4"),
@@ -120,6 +160,24 @@ public final class Fixture {
 
         public static Rating rating() {
             return FAKER.options().option(Rating.values());
+        }
+
+        public static AudioVideoMedia audioVideo(final VideoMediaType type) {
+            final var checksum = checksum();
+            return AudioVideoMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/videos/" + checksum
+            );
+        }
+
+        public static ImageMedia image(final VideoMediaType type) {
+            final var checksum = checksum();
+            return ImageMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/images/" + checksum
+            );
         }
     }
 }
