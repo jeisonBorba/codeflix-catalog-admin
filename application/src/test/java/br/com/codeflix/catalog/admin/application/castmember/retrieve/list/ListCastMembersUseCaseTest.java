@@ -1,6 +1,5 @@
 package br.com.codeflix.catalog.admin.application.castmember.retrieve.list;
 
-import br.com.codeflix.catalog.admin.application.Fixture;
 import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMember;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberGateway;
@@ -12,7 +11,7 @@ import org.mockito.Mock;
 
 import java.util.List;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.type;
 import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

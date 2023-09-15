@@ -1,6 +1,5 @@
 package br.com.codeflix.catalog.admin.application.castmember.create;
 
-import br.com.codeflix.catalog.admin.application.Fixture;
 import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberGateway;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
@@ -12,7 +11,7 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Objects;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.type;
 import static br.com.codeflix.catalog.admin.application.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -20,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
-public class CreateCastMemberUseCaseTest extends UseCaseTest {
+public class CreateCastMembersUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultCreateCastMemberUseCase useCase;
