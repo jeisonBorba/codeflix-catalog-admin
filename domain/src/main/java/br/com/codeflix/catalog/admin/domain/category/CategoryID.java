@@ -4,7 +4,6 @@ import br.com.codeflix.catalog.admin.domain.Identifier;
 import br.com.codeflix.catalog.admin.domain.utils.IdUtils;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class CategoryID extends Identifier {
 
@@ -21,10 +20,6 @@ public class CategoryID extends Identifier {
 
     public static CategoryID from(final String id) {
         return new CategoryID(id);
-    }
-
-    public static CategoryID from(final UUID id) {
-        return new CategoryID(id.toString().toLowerCase());
     }
 
     @Override

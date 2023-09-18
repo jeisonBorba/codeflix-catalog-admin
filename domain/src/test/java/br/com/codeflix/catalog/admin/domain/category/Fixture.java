@@ -1,8 +1,7 @@
-package br.com.codeflix.catalog.admin.application;
+package br.com.codeflix.catalog.admin.domain.category;
 
 import br.com.codeflix.catalog.admin.domain.castmember.CastMember;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
-import br.com.codeflix.catalog.admin.domain.category.Category;
 import br.com.codeflix.catalog.admin.domain.genre.Genre;
 import br.com.codeflix.catalog.admin.domain.utils.IdUtils;
 import br.com.codeflix.catalog.admin.domain.video.*;
@@ -11,8 +10,6 @@ import com.github.javafaker.Faker;
 import java.time.Year;
 import java.util.Set;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.Videos.description;
-import static br.com.codeflix.catalog.admin.application.Fixture.Videos.rating;
 import static io.vavr.API.*;
 
 public final class Fixture {
@@ -46,12 +43,12 @@ public final class Fixture {
     public static Video video() {
         return Video.newVideo(
                 "System Design no Mercado Livre na prática",
-                description(),
+                Videos.description(),
                 Year.of(2022),
                 Fixture.duration(),
                 Fixture.bool(),
                 Fixture.bool(),
-                rating(),
+                Videos.rating(),
                 Set.of(Categories.aulas().getId()),
                 Set.of(Genres.tech().getId()),
                 Set.of(CastMembers.wesley().getId(), CastMembers.gabriel().getId())

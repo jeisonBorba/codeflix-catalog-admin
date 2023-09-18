@@ -29,8 +29,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Objects;
 
-import static br.com.codeflix.catalog.admin.Fixture.CastMember.type;
-import static br.com.codeflix.catalog.admin.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.*;

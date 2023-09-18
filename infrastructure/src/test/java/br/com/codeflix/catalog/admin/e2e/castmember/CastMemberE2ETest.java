@@ -16,8 +16,8 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static br.com.codeflix.catalog.admin.Fixture.CastMember.type;
-import static br.com.codeflix.catalog.admin.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

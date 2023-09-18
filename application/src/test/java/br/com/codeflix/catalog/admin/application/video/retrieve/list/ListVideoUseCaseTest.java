@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Set;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.video;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.video;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;

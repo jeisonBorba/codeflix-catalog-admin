@@ -23,10 +23,6 @@ public class GenreID extends Identifier {
         return new GenreID(id);
     }
 
-    public static GenreID from(final UUID id) {
-        return new GenreID(id.toString().toLowerCase());
-    }
-
     @Override
     public String getValue() {
         return value;

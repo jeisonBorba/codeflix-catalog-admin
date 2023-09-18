@@ -1,6 +1,5 @@
 package br.com.codeflix.catalog.admin.application.video.update;
 
-import br.com.codeflix.catalog.admin.application.Fixture;
 import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberGateway;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
@@ -19,12 +18,12 @@ import org.mockito.Mock;
 import java.time.Year;
 import java.util.*;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.*;
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.gabriel;
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.wesley;
-import static br.com.codeflix.catalog.admin.application.Fixture.Categories.aulas;
-import static br.com.codeflix.catalog.admin.application.Fixture.Genres.tech;
-import static br.com.codeflix.catalog.admin.application.Fixture.Videos.*;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.*;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.gabriel;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.wesley;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.Categories.aulas;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.Genres.tech;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.Videos.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.*;

@@ -10,8 +10,8 @@ import org.mockito.Mock;
 
 import java.util.List;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.type;
-import static br.com.codeflix.catalog.admin.application.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;

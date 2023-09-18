@@ -12,8 +12,8 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.util.List;
 
-import static br.com.codeflix.catalog.admin.Fixture.CastMember.type;
-import static br.com.codeflix.catalog.admin.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;

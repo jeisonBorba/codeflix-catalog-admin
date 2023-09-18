@@ -1,11 +1,12 @@
 package br.com.codeflix.catalog.admin.application.castmember.update;
 
-import br.com.codeflix.catalog.admin.application.Fixture;
 import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMember;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberGateway;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
+import br.com.codeflix.catalog.admin.domain.category.Fixture;
+import br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers;
 import br.com.codeflix.catalog.admin.domain.exceptions.NotFoundException;
 import br.com.codeflix.catalog.admin.domain.exceptions.NotificationException;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.*;
@@ -139,7 +140,7 @@ public class UpdateCastMembersUseCaseTest extends UseCaseTest {
 
         final var expectedId = CastMemberID.from("123");
         final var expectedName = name();
-        final var expectedType = Fixture.CastMembers.type();
+        final var expectedType = CastMembers.type();
 
         final var expectedErrorMessage = "CastMember with ID 123 was not found";
 

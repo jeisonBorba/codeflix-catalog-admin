@@ -1,12 +1,12 @@
 package br.com.codeflix.catalog.admin.infrastructure.castmember.models;
 
-import br.com.codeflix.catalog.admin.Fixture;
 import br.com.codeflix.catalog.admin.JacksonTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
 
-import static br.com.codeflix.catalog.admin.Fixture.CastMember.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JacksonTest
@@ -17,7 +17,7 @@ class UpdateCastMemberRequestTest {
 
     @Test
     public void testUnmarshall() throws Exception {
-        final var expectedName = Fixture.name();
+        final var expectedName = name();
         final var expectedType = type();
 
         final var json = """

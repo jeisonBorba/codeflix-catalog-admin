@@ -1,6 +1,5 @@
 package br.com.codeflix.catalog.admin.infrastructure.castmember;
 
-import br.com.codeflix.catalog.admin.Fixture;
 import br.com.codeflix.catalog.admin.MySQLGatewayTest;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMember;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
@@ -15,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static br.com.codeflix.catalog.admin.Fixture.CastMember.type;
-import static br.com.codeflix.catalog.admin.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MySQLGatewayTest

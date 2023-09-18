@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.codeflix.catalog.admin.application.Fixture.CastMembers.type;
-import static br.com.codeflix.catalog.admin.application.Fixture.name;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.CastMembers.type;
+import static br.com.codeflix.catalog.admin.domain.category.Fixture.name;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
