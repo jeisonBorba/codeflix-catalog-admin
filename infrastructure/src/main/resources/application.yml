@@ -1,3 +1,30 @@
+amqp:
+  admin:
+    auto-create: false
+  queues:
+    video-created:
+      exchange: video.events
+      routing-key: video.created
+      queue: video.created.queue
+    video-encoded:
+      exchange: video.events
+      routing-key: video.encoded
+      queue: video.encoded.queue
+
+google:
+  cloud:
+    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
+    project-id: ${GOOGLE_CLOUD_PROJECT}
+    storage:
+      video-catalog:
+        bucket: video_catalog
+        connect-timeout: 1000
+        read-timeout: 5000
+        retry-delay: 50
+        retry-max-delay: 50
+        retry-max-attempts: 2
+        retry-multiplier: 1.0
+
 server:
   port: 8080
   servlet:
@@ -28,29 +55,21 @@ spring:
       maximum-pool-size: 20
       minimum-idle: 10
       pool-name: master
-    jpa:
-      open-in-view: false
-      show-sql: true
-      hibernate:
-        ddl-auto: none
-      properties:
-        "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
-        "[hibernate.generate_statistics]": false
-        "[hibernate.connection.provider_disables_autocommit]": true
-
-google:
-  cloud:
-    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
-    project-id: ${GOOGLE_CLOUD_PROJECT}
-    storage:
-      video-catalog:
-        bucket: video_catalog
-        connect-timeout: 1000
-        read-timeout: 5000
-        retry-delay: 50
-        retry-max-delay: 50
-        retry-max-attempts: 2
-        retry-multiplier: 1.0
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true
+  rabbitmq:
+    dynamic: ${amqp.admin.auto-create}
+    host: ${amqp.host}
+    port: ${amqp.port}
+    username: ${amqp.username}
+    password: ${amqp.password}
 
 storage:
   video-catalog:
