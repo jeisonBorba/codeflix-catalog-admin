@@ -60,7 +60,7 @@ public class VideoUseCaseConfig {
 
     @Bean
     public DeleteVideoUseCase deleteVideoUseCase() {
-        return new DefaultDeleteVideoUseCase(videoGateway);
+        return new DefaultDeleteVideoUseCase(videoGateway, mediaResourceGateway);
     }
 
     @Bean

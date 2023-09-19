@@ -18,6 +18,10 @@ public class NotFoundException extends DomainException {
             final Identifier identifier
     ) {
         final var errorMessage = "%s with ID %s was not found".formatted(aggregate.getSimpleName(), identifier.getValue());
-        return new NotFoundException(errorMessage, Collections.emptyList())
-;    }
+        return new NotFoundException(errorMessage, Collections.emptyList());
+    }
+
+    public static NotFoundException with(final Error error) {
+        return new NotFoundException(error.message(), List.of(error));
+    }
 }

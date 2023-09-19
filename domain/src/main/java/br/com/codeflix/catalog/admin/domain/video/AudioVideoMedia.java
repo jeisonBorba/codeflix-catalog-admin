@@ -86,4 +86,29 @@ public class AudioVideoMedia extends ValueObject {
         return Objects.hash(checksum, rawLocation);
     }
 
+    public AudioVideoMedia processing() {
+        return AudioVideoMedia.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedLocation(),
+                MediaStatus.PROCESSING
+        );
+    }
+
+    public AudioVideoMedia completed(final String encodedPath) {
+        return AudioVideoMedia.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedPath,
+                MediaStatus.COMPLETED
+        );
+    }
+
+    public boolean isPendingEncode() {
+        return MediaStatus.PENDING == this.status;
+    }
 }

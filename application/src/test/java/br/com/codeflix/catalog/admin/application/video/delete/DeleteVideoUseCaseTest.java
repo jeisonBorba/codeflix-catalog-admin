@@ -2,6 +2,7 @@ package br.com.codeflix.catalog.admin.application.video.delete;
 
 import br.com.codeflix.catalog.admin.application.UseCaseTest;
 import br.com.codeflix.catalog.admin.domain.exceptions.InternalErrorException;
+import br.com.codeflix.catalog.admin.domain.video.MediaResourceGateway;
 import br.com.codeflix.catalog.admin.domain.video.VideoGateway;
 import br.com.codeflix.catalog.admin.domain.video.VideoID;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,12 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
     @Mock
     private VideoGateway videoGateway;
 
+    @Mock
+    private MediaResourceGateway mediaResourceGateway;
+
     @Override
     protected List<Object> getMocks() {
-        return List.of(videoGateway);
+        return List.of(videoGateway, mediaResourceGateway);
     }
 
     @Test
@@ -35,9 +39,12 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
 
         doNothing().when(videoGateway).deleteById(any());
 
+        doNothing().when(mediaResourceGateway).clearResources(any());
+
         assertDoesNotThrow(() -> this.useCase.execute(expectedId.getValue()));
 
         verify(videoGateway).deleteById(eq(expectedId));
+        verify(mediaResourceGateway).clearResources(eq(expectedId));
     }
 
     @Test
