@@ -4,6 +4,12 @@ import br.com.codeflix.catalog.admin.application.video.create.CreateVideoUseCase
 import br.com.codeflix.catalog.admin.application.video.create.DefaultCreateVideoUseCase;
 import br.com.codeflix.catalog.admin.application.video.delete.DefaultDeleteVideoUseCase;
 import br.com.codeflix.catalog.admin.application.video.delete.DeleteVideoUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.get.DefaultGetMediaUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.get.GetMediaUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.update.DefaultUpdateMediaStatusUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.update.UpdateMediaStatusUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.upload.DefaultUploadMediaUseCase;
+import br.com.codeflix.catalog.admin.application.video.media.upload.UploadMediaUseCase;
 import br.com.codeflix.catalog.admin.application.video.retrieve.get.DefaultGetVideoByIdUseCase;
 import br.com.codeflix.catalog.admin.application.video.retrieve.get.GetVideoByIdUseCase;
 import br.com.codeflix.catalog.admin.application.video.retrieve.list.DefaultListVideoUseCase;
@@ -66,6 +72,21 @@ public class VideoUseCaseConfig {
     @Bean
     public ListVideoUseCase listVideosUseCase() {
         return new DefaultListVideoUseCase(videoGateway);
+    }
+
+    @Bean
+    public GetMediaUseCase getMediaUseCase() {
+        return new DefaultGetMediaUseCase(mediaResourceGateway);
+    }
+
+    @Bean
+    public UploadMediaUseCase uploadMediaUseCase() {
+        return new DefaultUploadMediaUseCase(mediaResourceGateway, videoGateway);
+    }
+
+    @Bean
+    public UpdateMediaStatusUseCase updateMediaStatusUseCase() {
+        return new DefaultUpdateMediaStatusUseCase(videoGateway);
     }
 
 }
