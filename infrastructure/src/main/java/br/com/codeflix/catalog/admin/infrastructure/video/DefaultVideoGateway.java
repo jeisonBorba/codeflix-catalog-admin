@@ -3,6 +3,8 @@ package br.com.codeflix.catalog.admin.infrastructure.video;
 import br.com.codeflix.catalog.admin.domain.Identifier;
 import br.com.codeflix.catalog.admin.domain.pagination.Pagination;
 import br.com.codeflix.catalog.admin.domain.video.*;
+import br.com.codeflix.catalog.admin.infrastructure.configuration.annotations.VideoCreatedQueue;
+import br.com.codeflix.catalog.admin.infrastructure.services.EventService;
 import br.com.codeflix.catalog.admin.infrastructure.video.persistence.VideoJpaEntity;
 import br.com.codeflix.catalog.admin.infrastructure.video.persistence.VideoRepository;
 import org.springframework.data.domain.PageRequest;
@@ -22,9 +24,13 @@ import static br.com.codeflix.catalog.admin.infrastructure.utils.SqlUtils.upper;
 public class DefaultVideoGateway implements VideoGateway {
 
     private final VideoRepository videoRepository;
+    private final EventService eventService;
 
-    public DefaultVideoGateway(final VideoRepository videoRepository) {
+    public DefaultVideoGateway(
+            final VideoRepository videoRepository,
+            @VideoCreatedQueue final EventService eventService) {
         this.videoRepository = Objects.requireNonNull(videoRepository);
+        this.eventService = Objects.requireNonNull(eventService);
     }
 
     @Override
@@ -78,7 +84,11 @@ public class DefaultVideoGateway implements VideoGateway {
     }
 
     private Video save(final Video video) {
-        return this.videoRepository.save(VideoJpaEntity.from(video))
+        final var result = this.videoRepository.save(VideoJpaEntity.from(video))
                 .toAggregate();
+
+        video.publishDomainEvents(this.eventService::send);
+
+        return result;
     }
 }

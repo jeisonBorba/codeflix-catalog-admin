@@ -3,16 +3,14 @@ package br.com.codeflix.catalog.admin.domain.video;
 import br.com.codeflix.catalog.admin.domain.AggregateRoot;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
+import br.com.codeflix.catalog.admin.domain.event.DomainEvent;
 import br.com.codeflix.catalog.admin.domain.genre.GenreID;
 import br.com.codeflix.catalog.admin.domain.utils.InstantUtils;
 import br.com.codeflix.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 import java.time.Year;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Video extends AggregateRoot<VideoID> {
 
@@ -57,9 +55,10 @@ public class Video extends AggregateRoot<VideoID> {
             final AudioVideoMedia video,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> members
-    ) {
-        super(id);
+            final Set<CastMemberID> members,
+            final List<DomainEvent> domainEvents
+            ) {
+        super(id, domainEvents);
         this.title = title;
         this.description = description;
         this.launchedAt = lauchYear;
@@ -131,12 +130,14 @@ public class Video extends AggregateRoot<VideoID> {
     public Video updateTrailerMedia(final AudioVideoMedia trailer) {
         this.trailer = trailer;
         this.updatedAt = InstantUtils.now();
+        onAudioVideoMediaUpdated(trailer);
         return this;
     }
 
     public Video updateVideoMedia(final AudioVideoMedia video) {
         this.video = video;
         this.updatedAt = InstantUtils.now();
+        onAudioVideoMediaUpdated(video);
         return this;
     }
 
@@ -252,7 +253,8 @@ public class Video extends AggregateRoot<VideoID> {
                 null,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
     }
 
@@ -275,7 +277,8 @@ public class Video extends AggregateRoot<VideoID> {
                 video.getVideo().orElse(null),
                 new HashSet<>(video.getCategories()),
                 new HashSet<>(video.getGenres()),
-                new HashSet<>(video.getCastMembers())
+                new HashSet<>(video.getCastMembers()),
+                video.getDomainEvents()
         );
     }
 
@@ -317,7 +320,8 @@ public class Video extends AggregateRoot<VideoID> {
                 video,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
     }
 
@@ -343,6 +347,12 @@ public class Video extends AggregateRoot<VideoID> {
         }
 
         return this;
+    }
+
+    private void onAudioVideoMediaUpdated(final AudioVideoMedia media) {
+        if (media != null && media.isPendingEncode()) {
+            this.registerEvent(new VideoMediaCreated(getId().getValue(), media.rawLocation()));
+        }
     }
 
 }
