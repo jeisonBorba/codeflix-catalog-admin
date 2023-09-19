@@ -1,4 +1,4 @@
-package br.com.codeflix.catalog.admin.domain.video;
+package br.com.codeflix.catalog.admin.domain.resource;
 
 import br.com.codeflix.catalog.admin.domain.ValueObject;
 

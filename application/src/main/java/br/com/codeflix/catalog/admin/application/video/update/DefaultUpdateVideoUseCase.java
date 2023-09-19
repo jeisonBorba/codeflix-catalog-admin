@@ -25,6 +25,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static br.com.codeflix.catalog.admin.domain.video.VideoMediaType.*;
+
 public class DefaultUpdateVideoUseCase extends UpdateVideoUseCase {
 
     private final VideoGateway videoGateway;
@@ -91,23 +93,23 @@ public class DefaultUpdateVideoUseCase extends UpdateVideoUseCase {
 
         try {
             final var videoMedia = command.getVideo()
-                    .map(it -> this.mediaResourceGateway.storeAudioVideo(id, it))
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(id, VideoResource.with(it, VIDEO)))
                     .orElse(null);
 
             final var trailerMedia = command.getTrailer()
-                    .map(it -> this.mediaResourceGateway.storeAudioVideo(id, it))
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(id, VideoResource.with(it, TRAILER)))
                     .orElse(null);
 
             final var bannerMedia = command.getBanner()
-                    .map(it -> this.mediaResourceGateway.storeImage(id, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(id, VideoResource.with(it, BANNER)))
                     .orElse(null);
 
             final var thumbnailMedia = command.getThumbnail()
-                    .map(it -> this.mediaResourceGateway.storeImage(id, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(id, VideoResource.with(it, THUMBNAIL)))
                     .orElse(null);
 
             final var thumbHalfMedia = command.getThumbnailHalf()
-                    .map(it -> this.mediaResourceGateway.storeImage(id, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(id, VideoResource.with(it, THUMBNAIL_HALF)))
                     .orElse(null);
 
             return this.videoGateway.update(

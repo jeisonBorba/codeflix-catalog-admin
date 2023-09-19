@@ -10,6 +10,7 @@ import br.com.codeflix.catalog.admin.domain.exceptions.InternalErrorException;
 import br.com.codeflix.catalog.admin.domain.exceptions.NotificationException;
 import br.com.codeflix.catalog.admin.domain.genre.GenreGateway;
 import br.com.codeflix.catalog.admin.domain.genre.GenreID;
+import br.com.codeflix.catalog.admin.domain.resource.Resource;
 import br.com.codeflix.catalog.admin.domain.video.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -1028,14 +1029,16 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
 
     private void mockImageMedia() {
         when(mediaResourceGateway.storeImage(any(), any())).thenAnswer(t -> {
-            final var resource = t.getArgument(1, Resource.class);
+            final var videoResource = t.getArgument(1, VideoResource.class);
+            final var resource = videoResource.resource();
             return ImageMedia.with(resource.checksum(), resource.name(), "/img");
         });
     }
 
     private void mockAudioVideoMedia() {
         when(mediaResourceGateway.storeAudioVideo(any(), any())).thenAnswer(t -> {
-            final var resource = t.getArgument(1, Resource.class);
+            final var videoResource = t.getArgument(1, VideoResource.class);
+            final var resource = videoResource.resource();
             return AudioVideoMedia.with(
                     resource.checksum(),
                     resource.name(),

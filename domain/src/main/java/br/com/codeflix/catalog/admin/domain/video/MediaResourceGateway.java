@@ -1,10 +1,16 @@
 package br.com.codeflix.catalog.admin.domain.video;
 
+import br.com.codeflix.catalog.admin.domain.resource.Resource;
+
+import java.util.Optional;
+
 public interface MediaResourceGateway {
 
-    AudioVideoMedia storeAudioVideo(VideoID id, Resource resource);
+    AudioVideoMedia storeAudioVideo(VideoID anId, VideoResource aResource);
 
-    ImageMedia storeImage(VideoID id, Resource resource);
+    ImageMedia storeImage(VideoID anId, VideoResource aResource);
 
-    void clearResources(VideoID id);
+    Optional<Resource> getResource(VideoID anId, VideoMediaType type);
+
+    void clearResources(VideoID anId);
 }

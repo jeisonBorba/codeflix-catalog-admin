@@ -3,6 +3,7 @@ package br.com.codeflix.catalog.admin.domain.category;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMember;
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberType;
 import br.com.codeflix.catalog.admin.domain.genre.Genre;
+import br.com.codeflix.catalog.admin.domain.resource.Resource;
 import br.com.codeflix.catalog.admin.domain.utils.IdUtils;
 import br.com.codeflix.catalog.admin.domain.video.*;
 import com.github.javafaker.Faker;
@@ -128,6 +129,10 @@ public final class Fixture {
             return Video.with(SYSTEM_DESIGN);
         }
 
+        public static VideoMediaType mediaType() {
+            return FAKER.options().option(VideoMediaType.values());
+        }
+
         public static Resource resource(final VideoMediaType type) {
             final String contentType = Match(type).of(
                     Case($(List(VideoMediaType.VIDEO, VideoMediaType.TRAILER)::contains), "video/mp4"),
@@ -168,7 +173,7 @@ public final class Fixture {
             );
         }
 
-        public static ImageMedia image(final VideoMediaType type) {
+        public static ImageMedia imageMedia(final VideoMediaType type) {
             final var checksum = checksum();
             return ImageMedia.with(
                     checksum,

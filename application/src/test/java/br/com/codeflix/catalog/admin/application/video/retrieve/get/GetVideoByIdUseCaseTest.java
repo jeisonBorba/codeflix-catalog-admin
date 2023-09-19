@@ -56,9 +56,9 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         );
         final var expectedVideo = audioVideo(VideoMediaType.VIDEO);
         final var expectedTrailer = audioVideo(VideoMediaType.TRAILER);
-        final var expectedBanner = image(VideoMediaType.BANNER);
-        final var expectedThumb = image(VideoMediaType.THUMBNAIL);
-        final var expectedThumbHalf = image(VideoMediaType.THUMBNAIL_HALF);
+        final var expectedBanner = imageMedia(VideoMediaType.BANNER);
+        final var expectedThumb = imageMedia(VideoMediaType.THUMBNAIL);
+        final var expectedThumbHalf = imageMedia(VideoMediaType.THUMBNAIL_HALF);
 
         final var aVideo = Video.newVideo(
                         expectedTitle,
