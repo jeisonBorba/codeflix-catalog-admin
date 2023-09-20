@@ -1,5 +1,6 @@
 package br.com.codeflix.catalog.admin.infrastructure.api;
 
+import br.com.codeflix.catalog.admin.ApiTest;
 import br.com.codeflix.catalog.admin.ControllerTest;
 import br.com.codeflix.catalog.admin.application.genre.create.CreateGenreOutput;
 import br.com.codeflix.catalog.admin.application.genre.create.CreateGenreUseCase;
@@ -72,6 +73,7 @@ public class GenreAPITest {
         when(createGenreUseCase.execute(any())).thenReturn(CreateGenreOutput.from(expectedId));
 
         final var request = post("/genres")
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(command));
 
@@ -103,6 +105,7 @@ public class GenreAPITest {
                 .thenThrow(new NotificationException("Error", Notification.create(new Error(expectedErrorMessage))));
 
         final var request = post("/genres")
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(command));
 
@@ -140,6 +143,7 @@ public class GenreAPITest {
         when(getGenreByIdUseCase.execute(any())).thenReturn(GenreOutput.from(genre));
 
         final var request = get("/genres/{id}", expectedId)
+                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -167,6 +171,7 @@ public class GenreAPITest {
         when(getGenreByIdUseCase.execute(any())).thenThrow(NotFoundException.with(Genre.class, expectedId));
 
         final var request = get("/genres/{id}", expectedId.getValue())
+                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -193,6 +198,7 @@ public class GenreAPITest {
         when(updateGenreUseCase.execute(any())).thenReturn(UpdateGenreOutput.from(genre));
 
         final var request = put("/genres/{id}", expectedId)
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(command));
 
@@ -226,6 +232,7 @@ public class GenreAPITest {
                 .thenThrow(new NotificationException("Error", Notification.create(new Error(expectedErrorMessage))));
 
         final var request = put("/genres/{id}", expectedId)
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(command));
 
@@ -252,6 +259,7 @@ public class GenreAPITest {
                 .when(deleteGenreUseCase).execute(any());
 
         final var request = delete("/genres/{id}", expectedId)
+                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var result = this.mvc.perform(request);
@@ -280,6 +288,7 @@ public class GenreAPITest {
                 .thenReturn(new Pagination<>(expectedPage, expectedPerPage, expectedTotal, expectedItems));
 
         final var request = get("/genres")
+                .with(ApiTest.GENRES_JWT)
                 .queryParam("page", String.valueOf(expectedPage))
                 .queryParam("perPage", String.valueOf(expectedPerPage))
                 .queryParam("sort", expectedSort)

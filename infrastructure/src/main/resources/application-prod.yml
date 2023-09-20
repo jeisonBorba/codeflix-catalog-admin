@@ -4,6 +4,10 @@ spring:
     hibernate:
       ddl-auto: none
 
+keycloak:
+  realm: ${KEYCLOAK_REALM:codeflix}
+  host: ${KEYCLOAK_HOST:http://localhost:8443}
+
 mysql:
   username: ${DATABASE_MYSQL_USERNAME:root}
   password: ${DATABASE_MYSQL_PASSWORD:123456}

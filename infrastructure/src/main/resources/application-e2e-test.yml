@@ -2,6 +2,10 @@ logging:
   level:
     ROOT: info
 
+keycloak:
+  realm: test
+  host: http://test:8443
+
 spring:
   autoconfigure:
     exclude:
