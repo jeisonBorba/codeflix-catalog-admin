@@ -1,11 +1,12 @@
 package br.com.codeflix.catalog.admin.domain.category.video;
 
+import br.com.codeflix.catalog.admin.domain.category.UnitTest;
 import br.com.codeflix.catalog.admin.domain.video.AudioVideoMedia;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AudioVideoMediaTest {
+public class AudioVideoMediaTest extends UnitTest {
 
     @Test
     public void givenValidParams_whenCallsNewAudioVideo_ShouldReturnInstance() {

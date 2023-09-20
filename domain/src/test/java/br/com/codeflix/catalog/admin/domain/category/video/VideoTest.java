@@ -2,6 +2,7 @@ package br.com.codeflix.catalog.admin.domain.category.video;
 
 import br.com.codeflix.catalog.admin.domain.castmember.CastMemberID;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
+import br.com.codeflix.catalog.admin.domain.category.UnitTest;
 import br.com.codeflix.catalog.admin.domain.genre.GenreID;
 import br.com.codeflix.catalog.admin.domain.utils.InstantUtils;
 import br.com.codeflix.catalog.admin.domain.validation.handler.ThrowsValidationHandler;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class VideoTest {
+public class VideoTest extends UnitTest {
 
     @Test
     public void givenValidParams_whenCallsNewVideo_shouldInstantiate() {

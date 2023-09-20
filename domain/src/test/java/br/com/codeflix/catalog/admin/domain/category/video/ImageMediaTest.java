@@ -1,11 +1,12 @@
 package br.com.codeflix.catalog.admin.domain.category.video;
 
+import br.com.codeflix.catalog.admin.domain.category.UnitTest;
 import br.com.codeflix.catalog.admin.domain.video.ImageMedia;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ImageMediaTest {
+public class ImageMediaTest extends UnitTest {
 
     @Test
     public void givenValidParams_whenCallsNewImage_ShouldReturnInstance() {
