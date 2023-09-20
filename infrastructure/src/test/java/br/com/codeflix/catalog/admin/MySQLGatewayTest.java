@@ -16,8 +16,9 @@ import java.lang.annotation.*;
 @DataJpaTest
 @ComponentScan(
         basePackages = "br.com.codeflix.catalog.admin",
+        useDefaultFilters = false,
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MySQLGateway")
         })
 @ExtendWith(MySQLCleanUpExtension.class)
 @Tag("integrationTest")

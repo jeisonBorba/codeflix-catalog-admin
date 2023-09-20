@@ -1,5 +1,6 @@
 package br.com.codeflix.catalog.admin.e2e.category;
 
+import br.com.codeflix.catalog.admin.ApiTest;
 import br.com.codeflix.catalog.admin.E2ETest;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.e2e.MockDsl;
@@ -177,6 +178,7 @@ public class CategoryE2ETest implements MockDsl {
         assertEquals(0, categoryRepository.count());
 
         final var aRequest = get("/categories/123")
+                .with(ApiTest.ADMIN_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

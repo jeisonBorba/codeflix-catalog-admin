@@ -1,20 +1,21 @@
 version: '3.7'
 
 services:
-  app:
-    container_name: adm_videos_app
-    build: .
-    profiles: ["app"]
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-      - rabbitmq
-    networks:
-      - adm_videos_network
+#  app:
+#    container_name: adm_videos_app
+##    build: .
+#    image: jeisonborba/codeflix-catalog-admin:main-1
+#    profiles: ["app"]
+#    restart: unless-stopped
+#    env_file:
+#      - .env
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - mysql
+#      - rabbitmq
+#    networks:
+#      - adm_videos_services
 
   mysql:
     container_name: adm_videos_mysql
@@ -27,7 +28,7 @@ services:
     ports:
       - 3306:3306
     networks:
-      - adm_videos_network
+      - adm_videos_services
 
   rabbitmq:
     container_name: adm_videos_rabbitmq
@@ -41,7 +42,23 @@ services:
       - 15672:15672
       - 5672:5672
     networks:
-      - adm_videos_network
+      - adm_videos_services
+
+  keycloak:
+    container_name: adm_videos_keycloak
+    image: quay.io/keycloak/keycloak:20.0.3
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - 8443:8080
+    command:
+      - start-dev # Use this command when running the application outside of Docker
+    #      - start-dev --hostname-url=http://keycloak:8080 # Use this command when running the application inside of Docker
+#    volumes:
+#      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
+    networks:
+      - adm_videos_services
 
 networks:
-  adm_videos_network:
+  adm_videos_services:

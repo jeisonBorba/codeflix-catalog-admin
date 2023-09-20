@@ -1,5 +1,6 @@
 package br.com.codeflix.catalog.admin.e2e.genre;
 
+import br.com.codeflix.catalog.admin.ApiTest;
 import br.com.codeflix.catalog.admin.E2ETest;
 import br.com.codeflix.catalog.admin.domain.category.CategoryID;
 import br.com.codeflix.catalog.admin.domain.genre.GenreID;
@@ -212,6 +213,7 @@ public class GenreE2ETest implements MockDsl {
         assertEquals(0, genreRepository.count());
 
         final var request = get("/genres/123")
+                .with(ApiTest.ADMIN_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
