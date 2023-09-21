@@ -1,32 +1,19 @@
 version: '3.7'
 
 services:
-#  app:
-#    container_name: adm_videos_app
-##    build: .
-#    image: jeisonborba/codeflix-catalog-admin:main-1
-#    profiles: ["app"]
-#    restart: unless-stopped
-#    env_file:
-#      - .env
-#    ports:
-#      - 8080:8080
-#    depends_on:
-#      - mysql
-#      - rabbitmq
-#    networks:
-#      - adm_videos_services
-
   mysql:
     container_name: adm_videos_mysql
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=adm_videos
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: adm_videos
+      MYSQL_ROOT_HOST: '%'
     security_opt:
       - seccomp:unconfined
     ports:
       - 3306:3306
+    volumes:
+      - ../.docker/mysql:/var/lib/mysql:rw
     networks:
       - adm_videos_services
 
@@ -53,12 +40,13 @@ services:
     ports:
       - 8443:8080
     command:
-      - start-dev # Use this command when running the application outside of Docker
-    #      - start-dev --hostname-url=http://keycloak:8080 # Use this command when running the application inside of Docker
-#    volumes:
-#      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
+      - start-dev # Use this command when running the application outside of Docker (Intellij)
+#          - start-dev --hostname-url=http://keycloak:8080 # Use this command when running the application inside of Docker
+    volumes:
+      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
       - adm_videos_services
 
 networks:
   adm_videos_services:
+    external: true
