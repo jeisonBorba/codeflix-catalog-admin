@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,6 +30,7 @@ import java.util.stream.Stream;
 @Profile("!development")
 public class SecurityConfig {
 
+    public static final String SECURITY_IGNORED_URLS = "/**/v3/api-docs/**,/**/swagger-ui*/**,/**/swagger-resources/**";
     private static final String ROLE_ADMIN = "CATALOG_ADMIN";
     private static final String ROLE_CAST_MEMBERS = "CATALOG_CAST_MEMBERS";
     private static final String ROLE_CATEGORIES = "CATALOG_CATEGORIES";
@@ -36,27 +38,24 @@ public class SecurityConfig {
     private static final String ROLE_VIDEOS = "CATALOG_VIDEOS";
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().antMatchers(SECURITY_IGNORED_URLS.split(","));
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> {
-                    authorize
-                            .antMatchers("/cast_members*").hasAnyRole(ROLE_ADMIN, ROLE_CAST_MEMBERS)
-                            .antMatchers("/categories*").hasAnyRole(ROLE_ADMIN, ROLE_CATEGORIES)
-                            .antMatchers("/genres*").hasAnyRole(ROLE_ADMIN, ROLE_GENRES)
-                            .antMatchers("/videos*").hasAnyRole(ROLE_ADMIN, ROLE_VIDEOS)
-                            .anyRequest().hasRole(ROLE_ADMIN);
-                })
-                .oauth2ResourceServer(oauth -> {
-                    oauth.jwt()
-                            .jwtAuthenticationConverter(new KeycloakJwtConverter());
-                })
-                .sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                })
-                .headers(headers -> {
-                    headers.frameOptions().sameOrigin();
-                })
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/cast_members*").hasAnyRole(ROLE_ADMIN, ROLE_CAST_MEMBERS)
+                        .antMatchers("/categories*").hasAnyRole(ROLE_ADMIN, ROLE_CATEGORIES)
+                        .antMatchers("/genres*").hasAnyRole(ROLE_ADMIN, ROLE_GENRES)
+                        .antMatchers("/videos*").hasAnyRole(ROLE_ADMIN, ROLE_VIDEOS)
+                        .anyRequest().hasRole(ROLE_ADMIN))
+                .oauth2ResourceServer(oauth -> oauth.jwt()
+                        .jwtAuthenticationConverter(new KeycloakJwtConverter()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(headers -> headers.frameOptions().sameOrigin())
                 .build();
     }
 
