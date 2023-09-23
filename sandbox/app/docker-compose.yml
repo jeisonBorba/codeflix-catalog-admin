@@ -3,7 +3,6 @@ version: '3.7'
 services:
   app:
     container_name: adm_videos_app
-#    image: jeisonborba/codeflix-catalog-admin:main-1
     build:
       context: ../../
       dockerfile: Dockerfile.dev
